@@ -1,0 +1,60 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS SAM template for testing Docker-based Lambda function
+
+Parameters:
+  Environment:
+    Type: String
+    Description: The environment (dev or prd)
+    AllowedValues: [dev, prd]
+  DBHost:
+    Type: String
+    Description: Host of MySQL Server
+  DBPort:
+    Type: Number
+    Description: Port of MySQL Server
+  DBUser:
+    Type: String
+    Description: Username of MySQL Server
+  DBPassword:
+    Type: String
+    Description: Password of MySQL Server
+  AWSKeyIam:
+    Type: String
+    Description: Access Key of AWS IAM User
+  AWSSecretIam:
+    Type: String
+    Description: Secret of AWS IAM User
+
+Globals:
+  Function:
+    Timeout: 180
+    MemorySize: 256
+
+Resources:
+  SamDemoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      ImageConfig:
+        Command: [app.lambda_handler]
+      ImageUri: !Sub sam-demo:${Environment}
+      Environment:
+        Variables:
+          ENVIRONMENT: !Ref Environment
+          DB_HOST: !Ref DBHost
+          DB_PORT: !Ref DBPort
+          DB_USER: !Ref DBUser
+          DB_PASSWORD: !Ref DBPassword
+          AWS_KEY_IAM: !Ref AWSKeyIAM
+          AWS_SECRET_IAM: !Ref AWSSecretIAM
+      Architectures:
+        - arm64
+    Metadata:
+      DockerTag: !Ref Environment
+      DockerContext: ./
+      Dockerfile: docker/Dockerfile
+      DockerBuildArgs: 
+        ENV: !Ref Environment
+      DockerEnvFiles:
+        - envs/${Environment}.json
