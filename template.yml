@@ -56,5 +56,3 @@ Resources:
       Dockerfile: docker/Dockerfile
       DockerBuildArgs: 
         ENV: !Ref Environment
-      DockerEnvFiles:
-        - envs/${Environment}.json
