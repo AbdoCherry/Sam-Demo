@@ -30,7 +30,5 @@ FROM public.ecr.aws/lambda/python:3.11 AS final
 COPY --from=builder /tmp/python-deps ${LAMBDA_TASK_ROOT}
 COPY src ${LAMBDA_TASK_ROOT}
 
-ARG ENV
-ENV ENVIRNMENT=${ENV}
 # Defining our entrypoint
 CMD [ "app.lambda_handler" ]
