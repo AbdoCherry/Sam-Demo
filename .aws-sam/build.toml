@@ -13,12 +13,12 @@ Dockerfile = "docker/Dockerfile"
 ENV = "Environment"
 
 [function_build_definitions.9f08f5d2-dc04-4284-8b41-4861e4643026.env_vars]
-ENVIRONMENT = "prd"
-DB_HOST = "emp.ckw9armvbghl.eu-central-1.rds.amazonaws.com"
+ENVIRONMENT = "test"
+DB_HOST = "test_host"
 DB_PORT = "3306"
-DB_USER = "cherry_dev"
-DB_PASSWORD = "abderrahmane2013!"
-AWS_KEY_IAM = "AKIAWAR3X3DAWDNQTJVM"
-AWS_SECRET_IAM = "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"
+DB_USER = "test_user"
+DB_PASSWORD = "test_password"
+AWS_KEY_IAM = "xxxxxxxxxxxxxxxxxxxxxx"
+AWS_SECRET_IAM = "xxxxxxxxxxxxxxxxxxxxxxx"
 
 [layer_build_definitions]
